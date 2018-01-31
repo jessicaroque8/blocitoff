@@ -1,5 +1,6 @@
 <ul>
-  <li *ngFor="let item of items | async">
-    {{ item }}
+  <li *ngFor="let task of tasks | async">
+    {{ task.title }}
+    {{ task.state }}
   </li>
 </ul>

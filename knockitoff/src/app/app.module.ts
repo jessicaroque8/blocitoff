@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TasksComponent } from './tasks/tasks.component';
 
+import { FirebaseService } from './firebase.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,7 @@ import { TasksComponent } from './tasks/tasks.component';
     AngularFireModule.initializeApp(environment.firebase, 'knockitoff'),
     AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

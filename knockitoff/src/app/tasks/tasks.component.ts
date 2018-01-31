@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { FirebaseService } from '../firebase.service'
 
 @Component({
   selector: 'app-tasks',
@@ -9,12 +9,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TasksComponent implements OnInit {
 
-   items: Observable<any[]>;
+   tasks: Observable<any[]>;
 
   constructor(
-     db: AngularFireDatabase
+     public fb: FirebaseService
    ) {
-      this.items = db.list('items').valueChanges();
+      this.tasks = fb.getTasks();
      }
 
   ngOnInit() {
