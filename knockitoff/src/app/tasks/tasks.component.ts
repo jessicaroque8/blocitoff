@@ -5,6 +5,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 
@@ -18,6 +23,17 @@ export class TasksComponent implements OnInit {
    title = 'Active Tasks';
    selectedState = 'active';
    selectedTasks: Observable<any[]>;
+   newTask = {
+      title: '',
+      priority: 0,
+   }
+
+   public priorities = [
+      {value: 0, viewValue: 'low'},
+      {value: 1, viewValue: 'medium'},
+      {value: 2, viewValue: 'high'}
+   ]
+
 
   constructor(
      public fb: FirebaseService
@@ -33,6 +49,13 @@ export class TasksComponent implements OnInit {
          this.selectedState = 'active';
          this.fb.filterBy('active');
       }
+   }
+
+   addRefresh() {
+      let title = this.newTask.title;
+      let priority = this.newTask.priority;
+      this.fb.addTask(title, priority);
+      this.onSelect('active');
    }
 
   ngOnInit() {

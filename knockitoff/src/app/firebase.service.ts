@@ -9,15 +9,15 @@ import 'rxjs/add/operator/switchMap';
 export class FirebaseService {
 
   selectedTasks$: Observable<any[]>;
-  state$: BehaviorSubject<string|null>;
+  status$: BehaviorSubject<string|null>;
 
   constructor(
      public db: AngularFireDatabase
   ) {
-     this.state$ = new BehaviorSubject(null);
-     this.selectedTasks$ = this.state$.switchMap(state =>
+     this.status$ = new BehaviorSubject(null);
+     this.selectedTasks$ = this.status$.switchMap(status =>
         db.list('tasks', ref =>
-            state ? ref.orderByChild('state').equalTo(state) : ref
+            status ? ref.orderByChild('status').equalTo(status) : ref
          ).snapshotChanges()
       );
    }
@@ -27,8 +27,8 @@ export class FirebaseService {
      return this.db.list('tasks')
   }
 
-  filterBy(state: string|null) {
-      this.state$.next(state);
+  filterBy(status: string|null) {
+      this.status$.next(status);
    }
 
    expireTasks(){
@@ -56,6 +56,17 @@ export class FirebaseService {
                this.db.object('/tasks/' + oldKeys[i]).update(({state: 'complete'}))
             }
          });
+   }
+
+   addTask(title, priority) {
+      let datetime = Date.now();
+      this.db.list('tasks').push(
+            { priority: priority,
+              title: title,
+              status: 'active',
+              created_at: datetime
+             },
+      );
    }
 
 }

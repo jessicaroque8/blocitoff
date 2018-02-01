@@ -1,4 +1,4 @@
-.example-fill-remaining-space {
+.fill-remaining-space {
   /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
@@ -10,4 +10,20 @@
 
 .title {
    margin-top: 12px;
+}
+
+.task-form {
+   width: 100%;
+}
+
+.enter-task {
+   width: 70%;
+}
+
+.priority {
+   width: 20%;
+}
+
+.spacer {
+   width: 20px;
 }

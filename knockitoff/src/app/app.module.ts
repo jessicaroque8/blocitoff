@@ -9,6 +9,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +25,7 @@ import { FirebaseService } from './firebase.service';
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,12 @@ import { FirebaseService } from './firebase.service';
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    MatChipsModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
