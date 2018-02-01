@@ -1,6 +1,14 @@
 <ul>
-  <li *ngFor="let task of tasks | async">
-    {{ task.title }}
-    {{ task.state }}
+   <li (click)="onSelect('history')">
+      Task History
+   </li>
+   <li (click)="onSelect('active')">
+      Active Tasks
+   </li>
+</ul>
+<h2>{{ title }}</h2>
+<ul>
+  <li *ngFor="let task of selectedTasks | async">
+    {{ task.payload.val().title }}
   </li>
 </ul>
