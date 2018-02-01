@@ -9,15 +9,30 @@ import { FirebaseService } from '../firebase.service'
 })
 export class TasksComponent implements OnInit {
 
-   tasks: Observable<any[]>;
+   title = 'Active Tasks';
+   selectedState = 'active';
+   selectedTasks: Observable<any[]>;
 
   constructor(
      public fb: FirebaseService
-   ) {
-      this.tasks = fb.getTasks();
-     }
+   ) {}
+
+   onSelect(state) {
+      if (state == 'history') {
+         this.title = 'Task History';
+         this.selectedState = 'history';
+         this.fb.filterBy('complete');
+      } else {
+         this.title = 'Active Tasks';
+         this.selectedState = 'active';
+         this.fb.filterBy('active');
+      }
+   }
 
   ngOnInit() {
+     this.fb.filterBy('active');
+     this.selectedTasks = this.fb.selectedTasks$;
+     this.fb.expireTasks();
   }
 
 }
