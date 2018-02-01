@@ -53,7 +53,7 @@ export class FirebaseService {
             });
 
             for (let i = 0; i < oldKeys.length; i++) {
-               this.db.object('/tasks/' + oldKeys[i]).update(({state: 'complete'}))
+               this.db.object('/tasks/' + oldKeys[i]).update(({status: 'complete'}))
             }
          });
    }
@@ -67,6 +67,12 @@ export class FirebaseService {
               created_at: datetime
              },
       );
+   }
+
+   completeTask(task) {
+      let key = task['key'].toString()
+      console.log(key);
+      this.db.object('/tasks/' + key).update(({status: 'complete'}))
    }
 
 }
