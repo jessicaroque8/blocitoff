@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,9 +33,8 @@ export class FirebaseService {
 
    expireTasks(){
       let now = Date.now();
+      let cutoff = now - 7 * 24 * 60 * 60 * 1000;
 
-      // I think below right now means 10 minutes ago??
-      let cutoff = now - 10 * 1000;
       const oldRef = this.db.list('tasks',
             ref => ref.orderByChild('created_at')
                       .endAt(cutoff)
