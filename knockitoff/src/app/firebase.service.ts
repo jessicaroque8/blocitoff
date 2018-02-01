@@ -23,8 +23,8 @@ export class FirebaseService {
    }
 
 // Returns an Observable.
-  getAllTasks() {
-     return this.db.list('tasks').valueChanges();
+  ref() {
+     return this.db.list('tasks')
   }
 
   filterBy(state: string|null) {
@@ -33,34 +33,30 @@ export class FirebaseService {
 
    expireTasks(){
       let now = Date.now();
+
       // I think below right now means 10 minutes ago??
       let cutoff = now - 10 * 1000;
-      this.oldRef = this.db.list('tasks',
+      const oldRef = this.db.list('tasks',
             ref => ref.orderByChild('created_at')
                       .endAt(cutoff)
       );
-      console.log(this.oldRef);
 
-      let oldTasks = [];
-      let oldKeys = [];
-
-      this.oldWithKeys = this.oldRef.snapshotChanges().map(changes => {
+      // Update old tasks in the database with status: complete.
+      const oldWithKeys = oldRef.snapshotChanges().map(changes => {
          return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      }).subscribe(res =>
-         oldTasks = res;
-      );
-      console.log(oldTasks);
+      }).subscribe(res => {
+            let oldTasks = [];
+            let oldKeys = [];
 
+            oldTasks.push(res);
+            oldTasks[0].forEach(function(task){
+               oldKeys.push(task['key']);
+            });
 
-      // oldTasks[0].forEach(function(task) {
-      //    oldKeys.push(task['key']);
-      //    console.log(oldKeys);
-      // });
-
-      console.log(oldKeys);
-
-      // Observable.timer(0, 7000).flatMap((i) => )
+            for (let i = 0; i < oldKeys.length; i++) {
+               this.db.object('/tasks/' + oldKeys[i]).update(({state: 'complete'}))
+            }
+         });
    }
-
 
 }

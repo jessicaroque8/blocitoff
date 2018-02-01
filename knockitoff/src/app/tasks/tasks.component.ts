@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseService } from '../firebase.service'
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+
+
 
 @Component({
   selector: 'app-tasks',
@@ -30,9 +36,9 @@ export class TasksComponent implements OnInit {
    }
 
   ngOnInit() {
-     this.fb.filterBy('active');
-     this.selectedTasks = this.fb.selectedTasks$;
      this.fb.expireTasks();
+     this.selectedTasks = this.fb.selectedTasks$;
+     this.fb.filterBy('active');
   }
 
 }
