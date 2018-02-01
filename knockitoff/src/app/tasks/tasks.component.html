@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="content">
    <mat-toolbar color="basic">
       <mat-toolbar-row>
          <mat-card-title class="mat-typography mat-h2 title">{{ title }}</mat-card-title>
@@ -13,41 +13,41 @@
    </mat-toolbar>
 
    <mat-card-content>
-      <form class="task-form" name='newTask'>
-         <mat-form-field class="enter-task">
-            <input matInput name='title' [(ngModel)]='newTask.title' placeholder="Need to...">
-         </mat-form-field>
+         <form class="task-form" name='newTask'>
+            <mat-form-field class="enter-task">
+               <input matInput name='title' [(ngModel)]='newTask.title' placeholder="Need to...">
+            </mat-form-field>
 
-         <mat-form-field class="priority">
-            <mat-select placeholder="Priority" [(value)]="newTask.priority">
-               <mat-option *ngFor="let p of priorities" [value]="p.value" ngDefaultControl name='priority'>
-                  {{ p.viewValue }}
-               </mat-option>
-            </mat-select>
-         </mat-form-field>
+            <mat-form-field class="priority">
+               <mat-select placeholder="Priority" [(value)]="newTask.priority">
+                  <mat-option *ngFor="let p of priorities" [value]="p.value" ngDefaultControl name='priority'>
+                     {{ p.viewValue }}
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
 
 
-         <span class="fill"></span>
-         <button mat-mini-fab color="primary" (click)="addRefresh()">
-            <mat-icon>add</mat-icon>
-         </button>
+            <span class="fill"></span>
+            <button mat-mini-fab color="primary" (click)="addRefresh()">
+               <mat-icon>add</mat-icon>
+            </button>
+         </form>
 
-      </form>
+         <mat-list>
+           <mat-list-item role="listitem" *ngFor="let task of selectedTasks | async">
+             {{ task.payload.val().title }}
+             <span class="spacer"></span>
+             <mat-chip-list>
+                <mat-chip *ngIf="task.payload.val().priority == 0"> low </mat-chip>
+                <mat-chip *ngIf="task.payload.val().priority == 1"> medium </mat-chip>
+                <mat-chip *ngIf="task.payload.val().priority == 2"> high </mat-chip>
+             </mat-chip-list>
+             <span class="fill-remaining-space"></span>
+             <mat-checkbox [align]="end" (click)="fb.completeTask(task)"></mat-checkbox>
+             <mat-divider></mat-divider>
+           </mat-list-item>
+        </mat-list>
 
-      <mat-list>
-        <mat-list-item role="listitem" *ngFor="let task of selectedTasks | async">
-          {{ task.payload.val().title }}
-          <span class="spacer"></span>
-          <mat-chip-list>
-             <mat-chip *ngIf="task.payload.val().priority == 0"> low </mat-chip>
-             <mat-chip *ngIf="task.payload.val().priority == 1"> medium </mat-chip>
-             <mat-chip *ngIf="task.payload.val().priority == 2"> high </mat-chip>
-          </mat-chip-list>
-          <span class="fill-remaining-space"></span>
-          <mat-checkbox [align]="end" (click)="fb.completeTask(task)"></mat-checkbox>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-     </mat-list>
   </mat-card-content>
 
 </mat-card>
