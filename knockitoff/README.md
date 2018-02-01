@@ -1,4 +1,5 @@
-# Blocitoff
+# Knockitoff
+A to-do list made with Firebase's Realtime Database, Angular, and Material Design.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
 

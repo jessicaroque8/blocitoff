@@ -55,6 +55,10 @@ export class TasksComponent implements OnInit {
       let title = this.newTask.title;
       let priority = this.newTask.priority;
       this.fb.addTask(title, priority);
+      this.newTask = {
+         title: '',
+         priority: 0,
+      };
       this.onSelect('active');
    }
 
