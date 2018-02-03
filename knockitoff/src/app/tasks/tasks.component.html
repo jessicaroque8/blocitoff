@@ -35,7 +35,7 @@
 
          <mat-list>
            <mat-list-item role="listitem" *ngFor="let task of selectedTasks | async">
-             {{ task.payload.val().title }}
+             <span [class.strike]="selectedState == 'history'">{{ task.payload.val().title }}</span>
              <span class="spacer"></span>
              <mat-chip-list>
                 <mat-chip *ngIf="task.payload.val().priority == 0"> low </mat-chip>
@@ -43,7 +43,7 @@
                 <mat-chip *ngIf="task.payload.val().priority == 2"> high </mat-chip>
              </mat-chip-list>
              <span class="fill-remaining-space"></span>
-             <mat-checkbox [align]="end" (click)="fb.completeTask(task)" *ngIf="selectedState = 'active'"></mat-checkbox>
+             <mat-checkbox [align]="end" (click)="fb.completeTask(task)" *ngIf="selectedState == 'active'"></mat-checkbox>
              <mat-divider></mat-divider>
            </mat-list-item>
         </mat-list>

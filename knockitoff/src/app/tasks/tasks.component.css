@@ -33,3 +33,7 @@
    display: block;
    height: 100%;
 }
+
+.strike {
+   text-decoration: line-through;
+}
